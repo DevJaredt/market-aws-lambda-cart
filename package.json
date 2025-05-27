@@ -21,6 +21,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "adm-zip": "^0.5.16",
     "aws-sdk": "^2.1692.0",
     "jsonwebtoken": "^9.0.2",
     "uuid": "^11.1.0"
