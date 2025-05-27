@@ -30,3 +30,11 @@ resource "aws_lambda_permission" "api_gateway" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${var.api_gateway_execution_arn}/*/*"
 }
+
+resource "aws_lambda_permission" "api_authorizer" {
+  statement_id  = "AllowAPIGatewayInvokeAuthorizer-${var.function_name}" 
+  action        = "lambda:InvokeFunction"
+  function_name = "arn:aws:lambda:us-west-1:590183686443:function:jwt-authorizer"
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${var.api_gateway_execution_arn}/*/*"
+}

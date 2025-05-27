@@ -23,4 +23,7 @@ resource "aws_apigatewayv2_route" "create_cart_route" {
   api_id    = module.api-gateway.api_id
   route_key = "POST /carts/create"
   target    = "integrations/${module.create_cart_lambda.integration_id}"
+  authorization_type = "CUSTOM"
+   authorizer_id      = aws_apigatewayv2_authorizer.jwt_authorizer.id
 }
+
