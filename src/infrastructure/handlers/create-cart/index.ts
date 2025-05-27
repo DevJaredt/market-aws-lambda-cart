@@ -1,13 +1,12 @@
-import { APIGatewayProxyHandler } from "aws-lambda";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { CartRepository } from "../../repository/carts.repository";
 import { CartService } from "../../../domain/service/cart-service";
 import { CreateCartUseCase } from "../../../application/create-cart.use-case";
 import { ICreateCart } from "../../../domain/entity/cart.entity.interface";
 
-export const handler: APIGatewayProxyHandler = async (event) => {
+export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    // Obtén el userId autenticado del authorizer
-    const userId = event.requestContext.authorizer?.principalId;
+    const userId = event.requestContext.authorizer?.lambda?.userId;
 
     if (!userId) {
       return {
@@ -22,7 +21,6 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     const service = new CartService(repository);
     const useCase = new CreateCartUseCase(service);
 
-    // Sobrescribe el userId con el autenticado
     const result = await useCase.execute({ ...body, userId });
 
     return {

@@ -1,5 +1,5 @@
 resource "aws_apigatewayv2_authorizer" "jwt_authorizer" {
-  api_id                            = module.api_gateway.api_id
+  api_id                            = module.api-gateway.api_id
   authorizer_type                   = "REQUEST"
   identity_sources                  = ["$request.header.Authorization"]
   name                              = "jwt-authorizer"
